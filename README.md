@@ -22,7 +22,7 @@ mv -r ~/nvim ~/.config/
 > [!NOTE]
 > After install delete **_.git and .github_** folder in nvim and
 > Check your terminal font
-> install some nerd fonts **Recommended Meslo nerd font**
+> install some nerd fonts **Recommended[Meslo nerd font](https://github.com/ryanoasis/nerd-fonts)**
 
 ```bash
 cd nvim
