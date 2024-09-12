@@ -10,6 +10,22 @@ local config = {
 	root_dir = vim.fs.dirname(
 		vim.fs.find({ "gradlew", ".git", "mvnw", "pom.xml", "build.gradle" }, { upward = true })[1]
 	),
+	settings = {
+		java = {
+			home = "/usr/lib/jvm/default", --[[ Chage default Java version ]]
+			configuration = {
+				runtimes = {
+					name = "JavaSE-11",
+					path = "usr/lib/jvm/java-11-openjdk",
+				},
+				{
+					name = "JavaSE-17",
+					path = "/usr/lib/jvm/java-17-openjdk/",
+				},
+				-- If you want to add more Java versions,append to this line
+			},
+		},
+	},
 }
 
 local bufopts = { noremap = true, silent = true, buffer = bufnr }
