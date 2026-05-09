@@ -25,7 +25,7 @@ return {
 			sources = {
 				files = {
 					layout = "vscode",
-					exclude = { "node_modules", ".git", "dist", "build", "target" },
+					-- exclude = { "node_modules", ".git", "dist", "build", "target" },
 				},
 				lsp_workspace_symbols = { layout = "vertical" },
 				cliphist = {

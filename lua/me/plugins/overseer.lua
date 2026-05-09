@@ -1,7 +1,5 @@
 return {
     'stevearc/overseer.nvim',
-    ---@module 'overseer'
-    ---@type overseer.SetupOpts
     opts = {
         task_list = {
             direction = "bottom",

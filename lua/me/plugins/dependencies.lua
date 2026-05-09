@@ -30,10 +30,25 @@ return {
 	{ "mfussenegger/nvim-jdtls" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "windwp/nvim-ts-autotag", opts = {} },
+	-- {
+	-- 	"wintermute-cell/gitignore.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim" },
+	-- 	cmd = "Gitignore",
+	-- 	config = function()
+	-- 		require("gitignore")
+	-- 		vim.keymap.set("n", "<leader>Gi", require("gitignore").generate)
+	-- 	end,
+	-- },
 	{
 		"wintermute-cell/gitignore.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		cmd = "Gitignore",
+		keys = {
+			{ "<leader>Gi", "<cmd>lua require('gitignore').generate()<cr>", desc = "Generate .gitignore" },
+		},
+		config = function()
+			require("gitignore")
+		end,
 	},
 	-- {
 	-- 	"Bekaboo/dropbar.nvim",
