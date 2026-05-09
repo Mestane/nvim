@@ -7,7 +7,10 @@ return {
 			clear_suggestion = "<C-]>",
 			accept_word = "<C-[>",
 		},
-		ignore_filetypes = { ["leetcode.nvim"] = true },
+		ignore_filetypes = {
+			["leetcode.nvim"] = true,
+			["grug-far"] = true,
+		},
 		color = {},
 		log_level = "info",
 		disable_inline_completion = false,

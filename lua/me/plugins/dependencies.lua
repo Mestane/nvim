@@ -19,7 +19,6 @@ return {
 	{ "romainl/vim-cool" },
 	{ "MunifTanjim/nui.nvim" },
 	{ "stevearc/dressing.nvim" },
-	-- { "lambdalisue/vim-suda" },
 	{
 		"lambdalisue/vim-suda",
 		lazy = false,
@@ -30,15 +29,6 @@ return {
 	{ "mfussenegger/nvim-jdtls" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "windwp/nvim-ts-autotag", opts = {} },
-	-- {
-	-- 	"wintermute-cell/gitignore.nvim",
-	-- 	dependencies = { "nvim-lua/plenary.nvim" },
-	-- 	cmd = "Gitignore",
-	-- 	config = function()
-	-- 		require("gitignore")
-	-- 		vim.keymap.set("n", "<leader>Gi", require("gitignore").generate)
-	-- 	end,
-	-- },
 	{
 		"wintermute-cell/gitignore.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -50,20 +40,6 @@ return {
 			require("gitignore")
 		end,
 	},
-	-- {
-	-- 	"Bekaboo/dropbar.nvim",
-	-- 	-- optional, but required for fuzzy finder support
-	-- 	dependencies = {
-	-- 		"nvim-telescope/telescope-fzf-native.nvim",
-	-- 		build = "make",
-	-- 	},
-	-- 	config = function()
-	-- 		local dropbar_api = require("dropbar.api")
-	-- 		vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
-	-- 		vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
-	-- 		vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
-	-- 	end,
-	-- },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },

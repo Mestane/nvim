@@ -40,8 +40,8 @@ vim.keymap.set("n", "<M-CR>", "i<CR><Esc>", {
 })
 
 keymap.set("i", "<M-CR>", "<Esc>o", { noremap = true, silent = true })
-keymap.set("n", "<C-u>", "5<C-u>", { noremap = true, silent = true })
-keymap.set("n", "<C-d>", "5<C-d>", { noremap = true, silent = true })
+keymap.set("n", "<C-u>", "9<C-u>", { noremap = true, silent = true })
+keymap.set("n", "<C-d>", "9<C-d>", { noremap = true, silent = true })
 keymap.set("v", "<C-y>", '"+y', { noremap = true, silent = true })
 
 keymap.set("n", "<leader>tn", "<cmd>tabnew<CR>", { noremap = true, silent = true })
