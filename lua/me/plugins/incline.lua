@@ -15,43 +15,15 @@ return {
 				only_win = false,
 			},
 
-			-- window = {
-			-- 	padding = 0,
-			-- 	margin = { horizontal = 0, vertical = 0 },
-			-- },
-			-- render = function(props)
-			-- 	local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-			-- 	if filename == "" then
-			-- 		filename = "[No Name]"
-			-- 	end
-			-- 	local ft_icon, ft_color = devicons.get_icon_color(filename)
-			-- 	local modified = vim.bo[props.buf].modified
-			-- 	local res = {
-			-- 		ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or "",
-			-- 		" ",
-			-- 		{ filename, gui = modified and "bold,italic" or "bold" },
-			-- 		guibg = "#44406e",
-			-- 	}
-			-- 	if props.focused then
-			-- 		for _, item in ipairs(navic.get_data(props.buf) or {}) do
-			-- 			table.insert(res, {
-			-- 				{ " > ", group = "NavicSeparator" },
-			-- 				{ item.icon, group = "NavicIcons" .. item.type },
-			-- 				{ item.name, group = "NavicText" },
-			-- 			})
-			-- 		end
-			-- 	end
-			-- 	table.insert(res, " ")
-			-- 	return res
-			-- end,
-			-- --------------------------------------------------------------------------------------------------------------------------------
-
 			render = function(props)
 				local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
 				if filename == "" then
 					filename = "[No Name]"
 				end
 				local ft_icon, ft_color = devicons.get_icon_color(filename)
+
+				-- İnaktif için soluk renk
+				local inactive_fg = "#585b70" -- Catppuccin surface2, istediğinle değiştir
 
 				local function get_git_diff()
 					local icons = { removed = "", changed = "", added = "" }
@@ -62,11 +34,15 @@ return {
 					end
 					for name, icon in pairs(icons) do
 						if tonumber(signs[name]) and signs[name] > 0 then
-							table.insert(labels, { icon .. signs[name] .. " ", group = "Diff" .. name })
+							table.insert(labels, {
+								icon .. signs[name] .. " ",
+								group = props.focused and ("Diff" .. name) or nil,
+								guifg = props.focused and nil or inactive_fg,
+							})
 						end
 					end
 					if #labels > 0 then
-						table.insert(labels, { "┊ " })
+						table.insert(labels, { "┊ ", guifg = props.focused and nil or inactive_fg })
 					end
 					return labels
 				end
@@ -74,111 +50,49 @@ return {
 				local function get_diagnostic_label()
 					local icons = { error = "", warn = "", info = "", hint = "" }
 					local label = {}
-
 					for severity, icon in pairs(icons) do
 						local n = #vim.diagnostic.get(
 							props.buf,
 							{ severity = vim.diagnostic.severity[string.upper(severity)] }
 						)
 						if n > 0 then
-							table.insert(label, { icon .. n .. " ", group = "DiagnosticSign" .. severity })
+							table.insert(label, {
+								icon .. n .. " ",
+								group = props.focused and ("DiagnosticSign" .. severity) or nil,
+								guifg = props.focused and nil or inactive_fg,
+							})
 						end
 					end
 					if #label > 0 then
-						table.insert(label, { "┊ " })
+						table.insert(label, { "┊ ", guifg = props.focused and nil or inactive_fg })
 					end
 					return label
 				end
 
+				-- İnaktif icon rengi: soluklaştır
+				local icon_color = props.focused and ft_color or inactive_fg
+
 				return {
 					{ get_diagnostic_label() },
 					{ get_git_diff() },
-					{ (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" },
+					{ (ft_icon or "") .. " ", guifg = icon_color, guibg = "none" },
 					{
 						filename .. " ",
-						gui = vim.bo[props.buf].modified and "bold,italic" or "bold",
-						guifg = vim.bo[props.buf].modified and "#f9e2af" or nil,
+						gui = (props.focused and vim.bo[props.buf].modified) and "bold,italic"
+							or props.focused and "bold"
+							or nil,
+						guifg = not props.focused and inactive_fg or vim.bo[props.buf].modified and "#f9e2af" or nil,
 					},
-					{ "┊  " .. vim.api.nvim_win_get_number(props.win), group = "DevIconWindows" },
-					-- guibg = "#44406e", -- bunu ekle
+					{
+						{
+							"┊  " .. vim.api.nvim_win_get_number(props.win),
+							group = props.focused and "DevIconWindows" or nil,
+							guifg = not props.focused and inactive_fg or nil,
+						},
+						-- guifg = props.focused and nil or inactive_fg,
+					},
 				}
 			end,
-			--
-			--
-			-- --------------------------------------------------------------------------------------------------------------------------------
-			--
-			-- window = {
-			-- 	padding = 0,
-			-- 	margin = { horizontal = 0 },
-			-- },
-			-- render = function(props)
-			-- 	local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-			-- 	if filename == "" then
-			-- 		filename = "[No Name]"
-			-- 	end
-			-- 	local ft_icon, ft_color = devicons.get_icon_color(filename)
-			-- 	local modified = vim.bo[props.buf].modified
-			-- 	return {
-			-- 		ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or "",
-			-- 		" ",
-			-- 		{ filename, gui = modified and "bold,italic" or "bold" },
-			-- 		" ",
-			-- 		guibg = "#44406e",
-			-- 	}
-			-- end,
-			--
-			--
-			-- --------------------------------------------------------------------------------------------------------------------------------
-			--
-			--
-			--
-			--
-			-- render = function(props)
-			-- 	local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-			-- 	if filename == "" then
-			-- 		filename = "[No Name]"
-			-- 	end
-			--
-			-- 	local ft_icon, ft_color = devicons.get_icon_color(filename)
-			-- 	local modified = vim.bo[props.buf].modified
-			-- 	local focused = props.focused
-			--
-			-- 	-- Separator rengi
-			-- 	local sep_fg = focused and "#7c7a9e" or "#4a4869"
-			-- 	local bg = focused and "#2e2a4a" or "#1e1c2e"
-			-- 	local filename_fg = focused and "#e0deff" or "#8884aa"
-			--
-			-- 	return {
-			-- 		-- Sol yuvarlak kenar
-			-- 		{ "", guifg = bg, guibg = "none" },
-			-- 		-- Dosya ikonu
-			-- 		ft_icon and {
-			-- 			" " .. ft_icon .. " ",
-			-- 			guifg = focused and ft_color or "#6e6a8a",
-			-- 			guibg = bg,
-			-- 		} or { "  ", guibg = bg },
-			-- 		-- Dosya adı
-			-- 		{
-			-- 			filename .. " ",
-			-- 			gui = modified and "bold,italic" or (focused and "bold" or "none"),
-			-- 			guifg = filename_fg,
-			-- 			guibg = bg,
-			-- 		},
-			-- 		-- Modified nokta
-			-- 		modified and { "● ", guifg = "#f4a261", guibg = bg } or "",
-			-- 		-- Separator
-			-- 		{ "┊ ", guifg = sep_fg, guibg = bg },
-			-- 		-- Window numarası
-			-- 		{
-			-- 			" " .. vim.api.nvim_win_get_number(props.win) .. " ",
-			-- 			guifg = focused and "#a89be0" or "#5a5878",
-			-- 			guibg = bg,
-			-- 		},
-			-- 		-- Sağ yuvarlak kenar
-			-- 		{ "", guifg = bg, guibg = "none" },
-			-- 	}
-			-- end,
-			-- --------------------------------------------------------------------------------------------------------------------------------
 		})
 	end,
 }
