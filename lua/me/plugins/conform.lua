@@ -14,17 +14,20 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			python = { "ruff_format", "ruff_fix" },
+			-- python = { "ruff_format" },
 			-- java = { "google-java-format" },
 			kotlin = { "ktlint" },
 			javascript = { "prettier" },
 			css = { "prettier" },
+			cpp = { "clang-format" },
 			typescript = { "prettier" },
 			javascriptreact = { "prettier" },
 			typescriptreact = { "prettier" },
 			http = { "kulala" },
 			toml = { "tombi" },
-			json = { "prettier" },
+			-- json = { "prettier" },
 			yaml = { "prettier" },
+			html = { "prettier" },
 			markdown = { "prettier" },
 			bash = { "shfmt" },
 			rust = { "rustfmt" },
@@ -35,8 +38,12 @@ return {
 			-- 	args = { "--aosp", "-" },
 			-- 	stdin = true,
 			-- },
+			-- ruff_fix = {
+			-- 	prepend_args = { "--select", "I" },
+			-- },
 			ruff_fix = {
-				prepend_args = { "--select", "I" },
+				args = { "check", "--fix", "--select", "I", "--force-exclude", "--stdin-filename", "$FILENAME", "-" },
+				stdin = true,
 			},
 			kulala = {
 				command = "kulala-fmt",
@@ -46,7 +53,9 @@ return {
 			-- excluded
 			prettier = {
 				prepend_args = function(self, ctx)
-					local excluded = { "%.md$", "%.css$", "%.html$" }
+					-- local excluded = { "%.md$", "%.css$", "%.html$", "%.jsx$" }
+					-- local excluded = { "%.md$", "%.css$", "%.html$" }
+					local excluded = { "%.md$" }
 					for _, pattern in ipairs(excluded) do
 						if ctx.filename:match(pattern) then
 							return {}

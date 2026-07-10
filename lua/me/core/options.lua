@@ -7,12 +7,13 @@ vim.opt.number = true
 -- tabs & indentation
 vim.opt.expandtab = true
 
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+
 -- vim.opt.softtabstop = 1
 
-vim.g.suda_smart_edit = 1
+-- vim.g.suda_smart_edit = 1
 
 vim.opt.autoindent = true
 
@@ -61,9 +62,17 @@ vim.opt.backspace = "indent,eol,start"
 --
 
 -- scrollstep according
-vim.opt.scrolloff = 10 -- degisti
+
+vim.opt.scrolloff = 10 -- değişti
+
 --
 -- opt.scroll = 5
+--
+-- vim.opt.spell = true
+-- vim.opt.spelllang = "en,tr"
+-- vim.opt.spelllang = { "en_us", "tr" }
+--
+-- vim.opt.colorcolumn = "100"
 
 -- split windows
 vim.opt.splitright = true
@@ -87,7 +96,9 @@ vim.opt.guicursor = {
 }
 
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos"
+-- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos" -- this default
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,globals"
+-- vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
 -- -----------------------------------------------------------------------------------------------------------
 -- opt.guicursor={n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait10-blinkon400-blikoff300}
 
@@ -157,4 +168,26 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 			end)
 		)
 	end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+	callback = function()
+		if vim.t.maximized then
+			require("maximize").restore()
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown", "text", "gitcommit" },
+	callback = function()
+		vim.opt_local.spell = true
+		vim.opt_local.spelllang = { "tr", "en" }
+	end,
+})
+
+vim.api.nvim_set_hl(0, "BlinkCmpLabelMatchCustom", {
+	-- fg = "#f38ba8", -- mauve
+	bold = true,
+	underline = true,
 })

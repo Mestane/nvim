@@ -22,16 +22,17 @@ keymap.set("n", "<", "<C-w><")
 keymap.set("n", "+", "<C-w>+")
 keymap.set("n", "-", "<C-w>-")
 
+
 keymap.set("i", "<C-h>", "<Left>")
 keymap.set("i", "<C-l>", "<Right>")
--- keymap.set("i", "<C-j>", "<Down>")
--- keymap.set("i", "<C-k>", "<Up>")
---
+
+keymap.set("i", "<C-j>", "<Down>")
+keymap.set("i", "<C-k>", "<Up>")
+
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
--- keymap.set("n", "<Enter>", "o<Esc>", { noremap = true, silent = true })
-keymap.set("n", "<C-M-o>", "O<Esc>", { noremap = true, silent = true })
+-- keymap.set("n", "<C-M-o>", "O<Esc>", { noremap = true, silent = true })
 
 keymap.set("n", "<CR>", "o<Esc>", { noremap = true, silent = true })
 
@@ -47,5 +48,8 @@ keymap.set("v", "<C-y>", '"+y', { noremap = true, silent = true })
 keymap.set("n", "<leader>tn", "<cmd>tabnew<CR>", { noremap = true, silent = true })
 -- keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { noremap = true, silent = true })
 
-
 vim.keymap.set("n", "<leader>p", "<cmd>PasteImage<cr>", { desc = "Paste image from clipboard" })
+
+-- vim.keymap.set({ "n", "x" }, "p", '"0p')
+vim.keymap.set({ "n", "x" }, "gp", '"0p')
+vim.keymap.set({ "n", "x" }, "gP", '"1p')

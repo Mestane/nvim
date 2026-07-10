@@ -14,6 +14,12 @@ return {
 			hide = {
 				only_win = false,
 			},
+			highlight = {
+				groups = {
+					InclineNormal = { guibg = "#131317", guifg = "none" },
+					InclineNormalNC = { guibg = "#131317", guifg = "none" },
+				},
+			},
 
 			render = function(props)
 				local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
@@ -47,6 +53,13 @@ return {
 					return labels
 				end
 
+				local function maximize_status(focused)
+					if not vim.t.maximized then
+						return {}
+					end
+					return { " 󰃻 ┊ ", gui = "bold", guifg = focused and "#F5E0DC" or inactive_fg }
+				end
+
 				local function get_diagnostic_label()
 					local icons = { error = "", warn = "", info = "", hint = "" }
 					local label = {}
@@ -73,6 +86,8 @@ return {
 				local icon_color = props.focused and ft_color or inactive_fg
 
 				return {
+					-- { maximize_status() },
+					{ maximize_status(props.focused) },
 					{ get_diagnostic_label() },
 					{ get_git_diff() },
 					{ (ft_icon or "") .. " ", guifg = icon_color, guibg = "none" },

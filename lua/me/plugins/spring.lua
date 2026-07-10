@@ -1,9 +1,21 @@
 return {
-	'jkeresman01/spring-initializr.nvim',
+	"jkeresman01/spring-initializr.nvim",
 	dependencies = {
-		'nvim-lua/plenary.nvim',
-		'MunifTanjim/nui.nvim',
-		'nvim-telescope/telescope.nvim',
+		"nvim-lua/plenary.nvim",
+		"MunifTanjim/nui.nvim",
+		"nvim-telescope/telescope.nvim",
 	},
 	opts = {},
 }
+
+-- return {
+-- 	"jkeresman01/spring-initializr.nvim",
+-- 	dependencies = {
+-- 		"nvim-lua/plenary.nvim",
+-- 		"MunifTanjim/nui.nvim",
+-- 		"nvim-telescope/telescope.nvim",
+-- 	},
+-- 	config = function()
+-- 		require("spring-initializr").setup()
+-- 	end,
+-- }

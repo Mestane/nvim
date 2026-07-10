@@ -21,6 +21,7 @@ return {
 			"/dev/*",
 			"/mnt/*",
 			"/tmp/*",
+			"/usr/lib/python3.14/site-packages/caelestia",
 			"/etc/*",
 			"/usr/*",
 			"/var/",

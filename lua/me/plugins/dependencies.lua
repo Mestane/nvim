@@ -15,7 +15,10 @@ return {
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
 	},
-	{ "b0o/schemastore.nvim" },
+	{
+		"b0o/schemastore.nvim",
+		lazy = true,
+	},
 	{ "romainl/vim-cool" },
 	{ "MunifTanjim/nui.nvim" },
 	{ "stevearc/dressing.nvim" },
@@ -40,6 +43,14 @@ return {
 			require("gitignore")
 		end,
 	},
+	-- { "lukas-reineke/virt-column.nvim", opts = {} },
+	-- {
+	-- 	"Bekaboo/deadcolumn.nvim",
+	-- 	enabled = false,
+	-- 	config = function()
+	-- 		require("deadcolumn").setup()
+	-- 	end,
+	-- },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },

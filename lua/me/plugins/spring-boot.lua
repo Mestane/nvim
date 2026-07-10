@@ -3,7 +3,7 @@ return {
 		"JavaHello/spring-boot.nvim",
 		ft = { "java", "yaml", "jproperties" },
 		dependencies = {
-			"mfussenegger/nvim-jdtls",
+			-- "mfussenegger/nvim-jdtls",
 			"ibhagwan/fzf-lua",
 		},
 		opts = {},

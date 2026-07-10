@@ -1,6 +1,7 @@
 return {
 	"supermaven-inc/supermaven-nvim",
 	event = "VeryLazy",
+    -- enabled = false,
 	opts = {
 		keymaps = {
 			accept_suggestion = "<C-o>",
@@ -10,6 +11,7 @@ return {
 		ignore_filetypes = {
 			["leetcode.nvim"] = true,
 			["grug-far"] = true,
+			-- ["java"] = true,
 		},
 		color = {},
 		log_level = "info",

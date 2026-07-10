@@ -106,7 +106,16 @@ vim.diagnostic.config({
 vim.opt.updatetime = 300
 
 -- LSP configs
-vim.lsp.config("jsonls", { capabilities = capabilities, on_attach = on_attach })
+vim.lsp.config("jsonls", {
+	capabilities = capabilities,
+	on_attach = on_attach,
+	-- settings = {
+	-- 	json = {
+	-- 		schemas = require("schemastore").json.schemas(),
+	-- 		validate = { enable = true },
+	-- 	},
+	-- },
+})
 vim.lsp.config("dockerls", { capabilities = capabilities, on_attach = on_attach })
 
 vim.lsp.config("hyprls", {
@@ -115,6 +124,7 @@ vim.lsp.config("hyprls", {
 	cmd = { "hyprls" },
 	filetypes = { "hyprlang" },
 	root_dir = vim.fn.expand("~/.config/hypr"),
+	-- root_dir = vim.fn.getcwd(),
 	settings = {
 		hyprls = {
 			preferIgnoreFile = true,
@@ -179,9 +189,9 @@ vim.lsp.config("emmet_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = {
-		"html",
-		"typescriptreact",
-		"javascriptreact",
+		-- "html",
+		-- "typescriptreact",
+		-- "javascriptreact",
 		"css",
 		"sass",
 		"scss",
@@ -194,6 +204,11 @@ vim.lsp.config("lemminx", { capabilities = capabilities, on_attach = on_attach }
 vim.lsp.config("jqls", { capabilities = capabilities, on_attach = on_attach })
 vim.lsp.config("marksman", { capabilities = capabilities, on_attach = on_attach, filetypes = { "markdown" } })
 
+-- vim.lsp.config("kotlin_language_server", {
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })
+--
 vim.lsp.config("kotlin_language_server", {
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -206,12 +221,12 @@ vim.lsp.config("kotlin_language_server", {
 		"build.gradle.kts",
 		"pom.xml",
 	},
-	settings = {
-		kotlin = {
-			compiler = { jvm = { target = "21" } },
-			completion = { snippets = { enabled = true } },
-		},
-	},
+	-- settings = {
+	-- 	kotlin = {
+	-- 		compiler = { jvm = { target = "21" } },
+	-- 		completion = { snippets = { enabled = true } },
+	-- 	},
+	-- },
 })
 
 vim.lsp.config("yamlls", {
@@ -220,12 +235,30 @@ vim.lsp.config("yamlls", {
 	settings = {
 		yaml = {
 			schemaStore = {
-				enable = true, -- schemastore catalog'u otomatik indirir
+				enable = false, -- schemastore catalog'u otomatik indirir
+				url = "",
 				-- url = "https://www.schemastore.org/api/json/catalog.json",
 			},
+			schemas = require("schemastore").yaml.schemas(),
 			validate = true,
 			completion = true,
 			hover = true,
+		},
+	},
+})
+
+vim.lsp.config("clangd", {
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
+vim.lsp.config("ts_ls", {
+	on_attach = on_attach,
+	capabilities = capabilities,
+	init_options = {
+		preferences = {
+			importModuleSpecifierPreference = "non-relative",
+			includeInlayParameterNameHints = "literals",
 		},
 	},
 })
@@ -253,7 +286,9 @@ vim.lsp.enable("rust_analyzer")
 vim.lsp.enable("cssls")
 vim.lsp.enable("bashls")
 vim.lsp.enable("hyprls")
+vim.lsp.enable("clangd")
 vim.lsp.enable("gopls")
+-- vim.lsp.enable("qmlls")
 vim.lsp.enable("jsonls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("emmet_ls")
@@ -263,5 +298,6 @@ vim.lsp.enable("marksman")
 vim.lsp.enable("kotlin_language_server")
 vim.lsp.enable("yamlls")
 vim.lsp.enable("lua_ls")
+vim.lsp.enable("ts_ls")
 
 vim.api.nvim_set_hl(0, "@lsp.mod.static", { italic = true })

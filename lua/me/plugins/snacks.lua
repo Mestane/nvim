@@ -229,7 +229,10 @@ return {
 			end,
 		},
 
-		words = { enabled = true },
+		words = {
+			enabled = true,
+			modes = { "n" },
+		},
 
 		scope = {
 			enabled = true,
@@ -269,81 +272,6 @@ return {
 				{ section = "keys", gap = 1, padding = 1 },
 				{ section = "startup" },
 			},
-			-- sections = {
-			-- 	{ section = "header" },
-			-- 	{
-			-- 		pane = 2,
-			-- 		section = "terminal",
-			-- 		cmd = "/usr/bin/colorscript -e square",
-			-- 		height = 5,
-			-- 		padding = 1,
-			-- 	},
-			--
-			-- 	{ section = "keys", gap = 1, padding = 1 },
-			-- 	{
-			-- 		pane = 2,
-			-- 		icon = " ",
-			-- 		desc = "Browse Repo",
-			-- 		padding = 1,
-			-- 		key = "b",
-			-- 		action = function()
-			-- 			Snacks.gitbrowse()
-			-- 		end,
-			-- 	},
-			-- 	function()
-			-- 		local in_git = Snacks.git.get_root() ~= nil
-			-- 		local cmds = {
-			-- 			{
-			-- 				title = "Notifications",
-			-- 				cmd = "gh notify -s -a -n5",
-			-- 				action = function()
-			-- 					vim.ui.open("https://github.com/notifications")
-			-- 				end,
-			-- 				key = "n",
-			-- 				icon = " ",
-			-- 				height = 5,
-			-- 				enabled = true,
-			-- 			},
-			-- 			{
-			-- 				title = "Open Issues",
-			-- 				cmd = "gh issue list -L 3",
-			-- 				key = "i",
-			-- 				action = function()
-			-- 					vim.fn.jobstart("gh issue list --web", { detach = true })
-			-- 				end,
-			-- 				icon = " ",
-			-- 				height = 7,
-			-- 			},
-			-- 			{
-			-- 				icon = " ",
-			-- 				title = "Open PRs",
-			-- 				cmd = "gh pr list -L 3",
-			-- 				key = "P",
-			-- 				action = function()
-			-- 					vim.fn.jobstart("gh pr list --web", { detach = true })
-			-- 				end,
-			-- 				height = 7,
-			-- 			},
-			-- 			{
-			-- 				icon = " ",
-			-- 				title = "Git Status",
-			-- 				cmd = "git --no-pager diff --stat -B -M -C",
-			-- 				height = 10,
-			-- 			},
-			-- 		}
-			-- 		return vim.tbl_map(function(cmd)
-			-- 			return vim.tbl_extend("force", {
-			-- 				pane = 2,
-			-- 				section = "terminal",
-			-- 				enabled = in_git,
-			-- 				padding = 1,
-			-- 				ttl = 5 * 60,
-			-- 				indent = 3,
-			-- 			}, cmd)
-			-- 		end, cmds)
-			-- 	end,
-			-- 	{ section = "startup" },
-			-- },
 		},
 		input = { enabled = false },
 		quickfile = { enabled = false },
@@ -359,6 +287,107 @@ return {
 			end,
 			desc = "Smart Find Files",
 		},
+
+
+        {
+			"<leader>fT",
+			function()
+				Snacks.picker.files({
+					layout = { preset = "vscode" },
+
+					-- 🌟 1. Yalnızca Enter tuşunda çalışacak özel aksiyonumuzu tanımlıyoruz
+					actions = {
+						smart_jump = function(picker, item)
+							picker:close()
+							if not item or not item.file then return end
+
+							local target_file = vim.fn.fnamemodify(item.file, ":p")
+							local found_tab = nil
+							local found_win = nil
+
+							-- Arka plandaki tüm sekmeleri ve splitleri tarıyoruz
+							for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+								for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+									local buf = vim.api.nvim_win_get_buf(win)
+									local buf_name = vim.api.nvim_buf_get_name(buf)
+									if buf_name ~= "" and vim.fn.fnamemodify(buf_name, ":p") == target_file then
+										found_tab = tabpage
+										found_win = win
+										break
+									end
+								end
+								if found_tab then break end
+							end
+
+							if found_tab and found_win then
+								-- Dosya başka bir sekmede açıksa, imleci oraya ışınla
+								vim.api.nvim_set_current_tabpage(found_tab)
+								vim.api.nvim_set_current_win(found_win)
+							else
+								-- Açık değilse, bulunduğun sekmeye normal bir şekilde aç
+								vim.cmd("edit " .. vim.fn.fnameescape(item.file))
+							end
+						end,
+					},
+
+					-- 🌟 2. Bu özel aksiyonu SADECE Enter (<CR>) tuşuna atıyoruz.
+					-- Ctrl+v (vsplit) ve Ctrl+x (split) gibi tuşlar Snacks'in varsayılan davranışında kalıyor!
+					win = {
+						input = {
+							keys = {
+								["<CR>"] = { "smart_jump", mode = { "i", "n" } },
+							},
+						},
+						list = {
+							keys = {
+								["<CR>"] = { "smart_jump", mode = { "i", "n" } },
+							},
+						},
+					},
+				})
+			end,
+			desc = "Smart Find Files",
+		},
+
+
+
+		--       {
+		-- 	"<leader>fT", -- Kısayolu istediğin gibi değiştirebilirsin
+		-- 	function()
+		-- 		local items = {}
+		-- 		-- Tüm açık sekmeleri (tab) listele
+		-- 		for i, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+		-- 			-- O sekmedeki aktif pencereyi ve dosyayı (buffer) bul
+		-- 			local win = vim.api.nvim_tabpage_get_win(tabpage)
+		-- 			local buf = vim.api.nvim_win_get_buf(win)
+		-- 			local file = vim.api.nvim_buf_get_name(buf)
+		--
+		-- 			local name = file ~= "" and file or "[No Name]"
+		--
+		-- 			table.insert(items, {
+		-- 				text = name,
+		-- 				file = name, -- <C-v> gibi aksiyonların çalışması için dosyayı tanıtıyoruz
+		-- 				tab_id = tabpage,
+		-- 			})
+		-- 		end
+		--
+		-- 		Snacks.picker({
+		-- 			title = "Open Tabs",
+		-- 			items = items,
+		-- 			layout = { preset = "vscode" },
+		-- 			format = "file", -- <leader>ff'deki gibi ikonlu ve yollu (path) göstermesi için
+		-- 			-- Enter tuşuna basıldığında (confirm) dosyayı baştan açmak yerine, doğrudan o sekmeye atlar
+		-- 			confirm = function(picker, item)
+		-- 				picker:close()
+		-- 				if item and item.tab_id then
+		-- 					vim.api.nvim_set_current_tabpage(item.tab_id)
+		-- 				end
+		-- 			end,
+		-- 		})
+		-- 	end,
+		-- 	desc = "Find Tabs",
+		-- },
+
 		{
 			"<leader>ff",
 			function()
@@ -492,7 +521,10 @@ return {
 		{
 			"<leader>fs",
 			function()
-				Snacks.picker.grep()
+				Snacks.picker.grep({
+
+					layout = { preset = "ivy" },
+				})
 			end,
 			desc = "Grep",
 		},

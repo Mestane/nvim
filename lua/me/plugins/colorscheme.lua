@@ -81,17 +81,7 @@ return {
 				mocha = function(colors)
 					return {
 						EndOfBuffer = { fg = "#131316" },
-						-- CursorLineNr = { fg = colors.blue, bold = true },
-						-- TabLineSel = { fg = colors.text, bg = colors.blue, bold = true },
-						-- Visual = { bg = "#2b2b35", italic = false },
-						-- VertSplit = { fg = colors.flamingo, bg = "NONE" },
-						-- WinSeparator = { fg = colors.surface1, bg = "NONE" },
 						WinSeparator = { fg = "#131316", bg = "NONE" },
-						-- Lualine_c_normal = { bg = "#131316" },
-						-- WinSeparatorNC = { fg = colors.surface1, bg = "NONE" },
-						-- SnacksIndent = { fg = "#131317" },
-						-- SnacksIndentScope = { fg = colors.surface1 },
-						-- SnacksIndentChunk = { fg = colors.surface1 },
 
 						WinbarPath = {
 							fg = colors.overlay1,
@@ -108,19 +98,19 @@ return {
 		end,
 	},
 
-	-- {
-	-- 	"folke/tokyonight.nvim",
-	-- 	enabled = false,
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	opts = {
-	-- 		transparent = true,
-	-- 		style = "night", -- The theme comes in three styles, `storm`, `moon`, and `night`.
-	-- 	},
-	--
-	-- 	config = function(_, opts)
-	-- 		require("tokyonight").setup(opts)
-	-- 		vim.cmd([[colorscheme tokyonight-storm]])
-	-- 	end,
-	-- },
+	{
+		"folke/tokyonight.nvim",
+		enabled = false,
+		lazy = false,
+		priority = 1000,
+		opts = {
+			transparent = true,
+			style = "night", -- The theme comes in three styles, `storm`, `moon`, and `night`.
+		},
+
+		-- config = function(_, opts)
+		-- 	require("tokyonight").setup(opts)
+		-- 	vim.cmd([[colorscheme tokyonight-storm]])
+		-- end,
+	},
 }
