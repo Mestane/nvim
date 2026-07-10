@@ -108,9 +108,5 @@ return {
 			style = "night", -- The theme comes in three styles, `storm`, `moon`, and `night`.
 		},
 
-		-- config = function(_, opts)
-		-- 	require("tokyonight").setup(opts)
-		-- 	vim.cmd([[colorscheme tokyonight-storm]])
-		-- end,
 	},
 }

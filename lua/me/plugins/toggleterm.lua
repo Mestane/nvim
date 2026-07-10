@@ -86,7 +86,6 @@ return {
 		-- -- Açık terminaller arasında seç
 		map("n", "<leader>ti", "<cmd>TermSelect<cr>", { desc = "Terminal: Select" })
 		--
-		-- -- Özel terminalller
 		-- map("n", "<leader>tg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", { desc = "Terminal: Lazygit" })
 		-- map("n", "<leader>tn", "<cmd>lua _NODE_TOGGLE()<cr>", { desc = "Terminal: Node" })
 		-- map("n", "<leader>tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Terminal: Python" })

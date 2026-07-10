@@ -6,8 +6,6 @@ return {
 	},
 	event = "VeryLazy",
 	config = function()
-		-- local helpers = require("incline.helpers")
-		-- local navic = require("nvim-navic")
 		local devicons = require("nvim-web-devicons")
 
 		require("incline").setup({
@@ -28,8 +26,7 @@ return {
 				end
 				local ft_icon, ft_color = devicons.get_icon_color(filename)
 
-				-- İnaktif için soluk renk
-				local inactive_fg = "#585b70" -- Catppuccin surface2, istediğinle değiştir
+				local inactive_fg = "#585b70"
 
 				local function get_git_diff()
 					local icons = { removed = "", changed = "", added = "" }

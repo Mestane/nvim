@@ -10,10 +10,6 @@ return {
 	config = function()
 		local dropbar_api = require("dropbar.api")
 
-		-- vim.api.nvim_set_hl(0, "WinBar", { bg = "#131317" }) -- active window bar
-		-- vim.api.nvim_set_hl(0, "WinBarNC", { bg = "#131317", fg = "#565A6A" }) -- inactive window bar
-
-		--
 		-- Keymaps
 		vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Dropbar: pick symbol" })
 		vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Dropbar: go to context start" })

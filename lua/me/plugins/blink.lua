@@ -4,7 +4,6 @@ return {
 		"saghen/blink.cmp",
 		dependencies = {
 			"saghen/blink.lib",
-			-- { "saghen/blink.lib", commit = "220979f3fcd388a08990189bc3b4e82aa1637ce9" },
 			"rafamadriz/friendly-snippets",
 			"Kaiser-Yang/blink-cmp-git",
 			"Kaiser-Yang/blink-cmp-avante",
@@ -13,11 +12,8 @@ return {
 			{ "nvim-mini/mini.icons", version = "*" },
 			"ribru17/blink-cmp-spell",
 		},
-		-- version = "1.*",
-		-- commit = "0593548ee0b0978abf303d30f449234e07f951d1",
 		build = function()
 			require("blink.cmp").build():wait(60000)
-			-- require('blink.cmp').build():pwait()
 		end,
 		opts = {
 
@@ -43,30 +39,14 @@ return {
 				enabled = true,
 				completion = {
 					menu = { auto_show = true },
-					-- keyword = { range = "full" },
-					-- menu = {
-					-- 	auto_show = function(ctx)
-					-- 		return vim.fn.getcmdtype() == ":"
-					-- 		-- enable for inputs as well, with:
-					-- 		-- or vim.fn.getcmdtype() == '@'
-					-- 	end,
-					-- },
 				},
 				keymap = {
-					-- preset = "inherit",
-					-- preset = "cmdline", -- inherit yerine cmdline preset kullan
-					-- keymap = { preset = "inherit" },
 					["<Tab>"] = { "accept" },
-					-- ["<Tab>"] = { "show", "accept" },
-					-- ["<CR>"] = { "fallback" },
 					["<C-j>"] = { "select_next" },
 					["<C-k>"] = { "select_prev" },
-					-- ["<C-j>"] = { "select_next", "fallback" },
-					-- ["<C-k>"] = { "select_prev", "fallback" },
 				},
 			},
 
-			------------------------------------------------------------------------------------------------------------------------
 			completion = {
 				-- accept = {
 				-- 	create_undo_point = false,
@@ -128,31 +108,6 @@ return {
 								end,
 							},
 
-							-- label = {
-							-- 	width = { fill = true, max = 60 },
-							-- 	text = function(ctx)
-							-- 		local highlights_info = require("colorful-menu").blink_highlights(ctx)
-							-- 		if highlights_info ~= nil then
-							-- 			-- Or you want to add more item to label
-							-- 			return highlights_info.label
-							-- 		else
-							-- 			return ctx.label
-							-- 		end
-							-- 	end,
-							-- 	highlight = function(ctx)
-							-- 		local highlights = {}
-							-- 		local highlights_info = require("colorful-menu").blink_highlights(ctx)
-							-- 		if highlights_info ~= nil then
-							-- 			highlights = highlights_info.highlights
-							-- 		end
-							-- 		for _, idx in ipairs(ctx.label_matched_indices) do
-							-- 			table.insert(highlights, { idx, idx + 1, group = "BlinkCmpLabelMatch" })
-							-- 		end
-							-- 		-- Do something else
-							-- 		return highlights
-							-- 	end,
-							-- },
-
 							kind_icon = {
 								text = function(ctx)
 									local git_icons = {
@@ -172,7 +127,6 @@ return {
 								end,
 							},
 						},
-						-- columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "kind", gap = 1 } },
 						columns = { { "kind_icon" }, { "label", gap = 2 }, { "kind", gap = 1 } },
 					},
 				},
@@ -197,8 +151,6 @@ return {
 					TelescopePrompt = {},
 					oil = {},
 					DressingInput = {},
-					-- snacks_picker_input = {}, -- bunu ekle
-					-- ["suda://"] = {},
 				},
 				providers = {
 					blinkcmpavante = {

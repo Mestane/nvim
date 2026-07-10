@@ -85,13 +85,6 @@ return {
 
 		gh = {
 			enabled = true,
-			-- keys = {
-			-- 	select = { "<cr>", "gh_actions", desc = "Select Action" },
-			-- 	edit = { "i", "gh_edit", desc = "Edit" },
-			-- 	comment = { "a", "gh_comment", desc = "Add Comment" },
-			-- 	close = { "c", "gh_close", desc = "Close" },
-			-- 	reopen = { "o", "gh_reopen", desc = "Reopen" },
-			-- },
 			wo = {
 				breakindent = true,
 				wrap = true,
@@ -104,13 +97,6 @@ return {
 				concealcursor = "n",
 				conceallevel = 2,
 				list = false,
-				-- winhighlight = Snacks.util.winhl({
-				-- 	Normal = "SnacksGhNormal",
-				-- 	NormalFloat = "SnacksGhNormalFloat",
-				-- 	FloatBorder = "SnacksGhBorder",
-				-- 	FloatTitle = "SnacksGhTitle",
-				-- 	FloatFooter = "SnacksGhFooter",
-				-- }),
 			},
 			bo = {},
 			diff = { min = 4, wrap = 80 },
@@ -288,8 +274,7 @@ return {
 			desc = "Smart Find Files",
 		},
 
-
-        {
+		{
 			"<leader>fT",
 			function()
 				Snacks.picker.files({
@@ -299,7 +284,9 @@ return {
 					actions = {
 						smart_jump = function(picker, item)
 							picker:close()
-							if not item or not item.file then return end
+							if not item or not item.file then
+								return
+							end
 
 							local target_file = vim.fn.fnamemodify(item.file, ":p")
 							local found_tab = nil
@@ -316,7 +303,9 @@ return {
 										break
 									end
 								end
-								if found_tab then break end
+								if found_tab then
+									break
+								end
 							end
 
 							if found_tab and found_win then
@@ -330,8 +319,6 @@ return {
 						end,
 					},
 
-					-- 🌟 2. Bu özel aksiyonu SADECE Enter (<CR>) tuşuna atıyoruz.
-					-- Ctrl+v (vsplit) ve Ctrl+x (split) gibi tuşlar Snacks'in varsayılan davranışında kalıyor!
 					win = {
 						input = {
 							keys = {
@@ -348,45 +335,6 @@ return {
 			end,
 			desc = "Smart Find Files",
 		},
-
-
-
-		--       {
-		-- 	"<leader>fT", -- Kısayolu istediğin gibi değiştirebilirsin
-		-- 	function()
-		-- 		local items = {}
-		-- 		-- Tüm açık sekmeleri (tab) listele
-		-- 		for i, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
-		-- 			-- O sekmedeki aktif pencereyi ve dosyayı (buffer) bul
-		-- 			local win = vim.api.nvim_tabpage_get_win(tabpage)
-		-- 			local buf = vim.api.nvim_win_get_buf(win)
-		-- 			local file = vim.api.nvim_buf_get_name(buf)
-		--
-		-- 			local name = file ~= "" and file or "[No Name]"
-		--
-		-- 			table.insert(items, {
-		-- 				text = name,
-		-- 				file = name, -- <C-v> gibi aksiyonların çalışması için dosyayı tanıtıyoruz
-		-- 				tab_id = tabpage,
-		-- 			})
-		-- 		end
-		--
-		-- 		Snacks.picker({
-		-- 			title = "Open Tabs",
-		-- 			items = items,
-		-- 			layout = { preset = "vscode" },
-		-- 			format = "file", -- <leader>ff'deki gibi ikonlu ve yollu (path) göstermesi için
-		-- 			-- Enter tuşuna basıldığında (confirm) dosyayı baştan açmak yerine, doğrudan o sekmeye atlar
-		-- 			confirm = function(picker, item)
-		-- 				picker:close()
-		-- 				if item and item.tab_id then
-		-- 					vim.api.nvim_set_current_tabpage(item.tab_id)
-		-- 				end
-		-- 			end,
-		-- 		})
-		-- 	end,
-		-- 	desc = "Find Tabs",
-		-- },
 
 		{
 			"<leader>ff",
@@ -746,10 +694,8 @@ return {
 					return
 				end
 
-				-- buffer oluştur
 				local buf = vim.api.nvim_create_buf(false, true)
 
-				-- dosyayı oku
 				vim.api.nvim_buf_call(buf, function()
 					vim.cmd("silent read " .. file)
 				end)

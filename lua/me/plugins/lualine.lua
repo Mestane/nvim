@@ -115,14 +115,6 @@ return {
 					end,
 				},
 
-				-- {
-				--     "windows",
-				--     show_filename_only = true,
-				--     show_modified_status = true,
-				--     disabled_buftypes = { "quickfix", "prompt", "nofile" },
-				--     use_mode_colors = false,
-				-- },
-				--
 				{
 					"searchcount",
 					color = { fg = colors.peach, gui = "italic" },

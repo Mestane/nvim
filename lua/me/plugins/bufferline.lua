@@ -8,14 +8,7 @@ return {
 			options = {
 				diagnostics = "nvim_lsp",
 				mode = "tabs",
-				-- separator_style = "slant" | "slope" | "thick" | "thin" | { "any", "any" },
-				-- separator_style = "slant",
 				indicator = { style = "underline" },
-				-- indicator = { style = "none" },
-				-- indicator = { style = "icon", icon = "|" },
-				-- indicator = { style = "slope" },
-				-- left_trunc_marker = " ",
-				-- right_trunc_marker = " ",
 				offsets = {
 					{
 						filetype = "NvimTree",
@@ -33,13 +26,6 @@ return {
 			highlights = {
 				fill = { bg = "#131317" },
 				background = { bg = "#131317" },
-				-- buffer_selected = { bg = "#2a2a35" }, -- seçili tab rengi
-				-- fill = { bg = "#101014" },
-				-- background = { bg = "#101014" },
-				-- separator = { fg = "#131317", bg = "#131317" },
-				-- separator_selected = { fg = "#131317" },
-				-- separator_visible = { fg = "#131317" },
-				--
 				error = { fg = "#B6687E", sp = "#B6687E" },
 				error_diagnostic = { fg = "#B6687E", sp = "#B6687E" },
 				warning = { fg = "#BAA984", sp = "#BAA984" },
@@ -51,6 +37,4 @@ return {
 			},
 		})
 	end,
-	-- keys = {
-	-- },
 }

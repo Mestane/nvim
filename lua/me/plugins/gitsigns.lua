@@ -1,36 +1,3 @@
--- return {
--- 	"lewis6991/gitsigns.nvim",
--- 	event = "VeryLazy",
--- 	config = function()
--- 		local gitsigns = require("gitsigns")
--- 		gitsigns.setup({
--- 			current_line_blame = true,
--- 			preview_config = {
--- 				border = "rounded", -- none, single, double, rounded, solid
--- 			},
--- 		})
---
--- 		vim.keymap.set("n", "]c", function()
--- 			if vim.wo.diff then
--- 				vim.cmd.normal({ "]c", bang = true })
--- 			else
--- 				gitsigns.nav_hunk("next")
--- 			end
--- 		end, { desc = "Next hunk" })
---
--- 		vim.keymap.set("n", "[c", function()
--- 			if vim.wo.diff then
--- 				vim.cmd.normal({ "[c", bang = true })
--- 			else
--- 				gitsigns.nav_hunk("prev")
--- 			end
--- 		end, { desc = "Prev hunk" })
---
--- 		vim.keymap.set("n", "<leader>gh", "<cmd>Gitsigns preview_hunk_inline<CR>", { desc = "Preview hunk inline" })
--- 		vim.keymap.set("n", "<leader>gr", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Preview hunk" })
--- 	end,
--- }
---
 return {
 	"lewis6991/gitsigns.nvim",
 	event = "VeryLazy",

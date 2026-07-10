@@ -17,28 +17,6 @@ return {
 		{ "<leader>vk", "<cmd>DiffviewOpen HEAD -- %<cr>", desc = "Diff file vs HEAD" },
 
 		-----------------------------------------------------------------------------------------------------------------------------------------------------------
-		-- Temel
-		-- { "<leader>vv", "<cmd>DiffviewOpen<cr>", desc = "Diffview: Working tree" },
-		-- { "<leader>vc", "<cmd>DiffviewClose<cr>", desc = "Diffview: Close" },
-		--
-		-- -- Geçmiş
-		-- { "<leader>vh", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview: Repo history" },
-		-- { "<leader>vf", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview: File history" },
-		--
-		-- -- HEAD karşılaştırma
-		-- { "<leader>vk", "<cmd>DiffviewOpen HEAD -- %<cr>", desc = "Diffview: File vs HEAD" },
-		--
-		-- -- PR öncesi: branch'teki tüm değişiklikler
-		-- { "<leader>vb", "<cmd>DiffviewOpen origin/main...HEAD<cr>", desc = "Diffview: Branch vs origin/main" },
-		--
-		-- -- Merge conflict
-		-- { "<leader>vm", "<cmd>DiffviewOpen<cr>", desc = "Diffview: Merge conflicts" },
-		--
-		-- -- Panel toggle
-		-- { "<leader>vt", "<cmd>DiffviewToggleFiles<cr>", desc = "Diffview: Toggle file panel" },
-		--
-		-- -- Commit range (son N commit) — komut satırından: :DiffviewOpen HEAD~3
-		-- { "<leader>v3", "<cmd>DiffviewOpen HEAD~3<cr>", desc = "Diffview: Last 3 commits" },
 	},
 	config = function()
 		-- local actions = require("diffview.actions")

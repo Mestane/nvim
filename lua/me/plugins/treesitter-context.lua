@@ -17,8 +17,5 @@ return {
 	config = function(_, opts)
 		require("treesitter-context").setup(opts)
 		vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#131317" })
-		-- vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#89b4fa", bg = "#131317" })
-		-- vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { fg = "#313244" })
-		-- vim.api.nvim_set_hl(0, "TreesitterContextBottom", { underline = true, sp = "#89b4fa" })
 	end,
 }

@@ -20,7 +20,7 @@ return {
                 win = {
                     -- position = "right",
                     position = "bottom",
-                    size = 0.2, -- <<< Buraya istediğin genişlik
+                    size = 0.2,
                 },
                 -- preview = {
                     -- 	type = "split",

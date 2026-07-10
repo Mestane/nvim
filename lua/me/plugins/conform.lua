@@ -33,14 +33,6 @@ return {
 			rust = { "rustfmt" },
 		},
 		formatters = {
-			-- ["google-java-format"] = {
-			-- 	command = "google-java-format",
-			-- 	args = { "--aosp", "-" },
-			-- 	stdin = true,
-			-- },
-			-- ruff_fix = {
-			-- 	prepend_args = { "--select", "I" },
-			-- },
 			ruff_fix = {
 				args = { "check", "--fix", "--select", "I", "--force-exclude", "--stdin-filename", "$FILENAME", "-" },
 				stdin = true,
@@ -65,27 +57,6 @@ return {
 				end,
 			},
 
-			-- included
-			-- prettier = {
-			-- 	prepend_args = function(self, ctx)
-			-- 		local included = { "%.ya?ml$", "%.json$" }
-			-- 		for _, pattern in ipairs(included) do
-			-- 			if ctx.filename:match(pattern) then
-			-- 				return { "--tab-width", "4" }
-			-- 			end
-			-- 		end
-			-- 		return {}
-			-- 	end,
-			-- },
-
-			-- prettier = {
-			-- 	prepend_args = function(self, ctx)
-			-- 		if ctx.filename:match("%.ya?ml$") then
-			-- 			return { "--tab-width", "4" }
-			-- 		end
-			-- 		return {}
-			-- 	end,
-			-- },
 		},
 	},
 }

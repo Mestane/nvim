@@ -43,9 +43,9 @@ vim.o.foldmethod = "expr"
 -- vim.o.foldmethod = "indent"
 
 -- vim.o.foldmethod = "manual"
-vim.o.foldenable = true -- Fold özelliği açık kalsın
-vim.o.foldlevel = 99 -- Açılışta tüm fold'lar açık olsun
-vim.o.foldlevelstart = 99 -- Fold seviyesini açık başlat
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
 
 -- appearance
 vim.opt.termguicolors = true
@@ -63,7 +63,7 @@ vim.opt.backspace = "indent,eol,start"
 
 -- scrollstep according
 
-vim.opt.scrolloff = 10 -- değişti
+vim.opt.scrolloff = 10
 
 --
 -- opt.scroll = 5
@@ -84,7 +84,7 @@ vim.opt.iskeyword:remove("_")
 -- turn off swapfile
 vim.opt.swapfile = false
 
-vim.opt.viewoptions = "folds,cursor,slash,unix" -- yeni eklendi.
+vim.opt.viewoptions = "folds,cursor,slash,unix"
 
 -- opt.guicursor = { "a:blinkon100", "n:block", "i:ver25", "c:ver25" } -- change nvim modes cursor gui
 vim.opt.guicursor = {
@@ -144,7 +144,6 @@ local timer = assert(vim.loop.new_timer(), "Failed to create timer")
 --
 vim.api.nvim_create_autocmd("ModeChanged", {
 	callback = function()
-		-- Snacks picker input'unda çalışma
 		local ft = vim.bo.filetype
 		if ft == "snacks_picker_input" or ft == "snacks_input" then
 			return
