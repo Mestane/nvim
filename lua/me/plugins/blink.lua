@@ -1,6 +1,5 @@
 return {
 	{
-
 		"saghen/blink.cmp",
 		dependencies = {
 			"saghen/blink.lib",
@@ -13,7 +12,8 @@ return {
 			"ribru17/blink-cmp-spell",
 		},
 		build = function()
-			require("blink.cmp").build():wait(60000)
+			-- require("blink.cmp").build():wait(60000)
+			require("blink.cmp").build():pwait()
 		end,
 		opts = {
 
@@ -51,14 +51,23 @@ return {
 				-- accept = {
 				-- 	create_undo_point = false,
 				-- },
+				-- trigger = {
+				-- 	-- Normal->Insert geçişinde bazen ilk completion isteğinin boş
+				-- 	-- dönmesine sebep olan özel "insert-entry" tetikleme yolunu
+				-- 	-- kapatıyoruz; her zaman normal show_on_keyword yoluna düşer.
+				-- 	show_on_insert_on_trigger_character = false,
+				-- },
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 200,
 					window = { border = "rounded" },
 				},
+
 				menu = {
+
 					border = "rounded",
-					winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpBorder",
+					-- winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpBorder",
+					winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None,CurSearch:None",
 
 					auto_show = function()
 						local bt = vim.bo.buftype

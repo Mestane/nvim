@@ -204,6 +204,19 @@ vim.lsp.config("lemminx", { capabilities = capabilities, on_attach = on_attach }
 vim.lsp.config("jqls", { capabilities = capabilities, on_attach = on_attach })
 vim.lsp.config("marksman", { capabilities = capabilities, on_attach = on_attach, filetypes = { "markdown" } })
 
+vim.lsp.config("qmlls", {
+	capabilities = capabilities,
+	on_attach = on_attach,
+	-- Mason "qmlls" paketi genelde binary'yi doğrudan "qmlls" adıyla kurar.
+	-- `:LspInfo` "not executable / not installed" derse burayı "qmlls6" yap.
+	cmd = { "qmlls" },
+	filetypes = { "qml", "qmljs" },
+	-- Quickshell projelerinde (caelestia-shell gibi) proje kökü shell.qml'in
+	-- bulunduğu dizindir; orada .qmlls.ini yoksa Quickshell'in tip çözümlemesi çalışmaz
+	root_markers = { "shell.qml", ".git" },
+	single_file_support = true,
+})
+
 -- vim.lsp.config("kotlin_language_server", {
 -- 	on_attach = on_attach,
 -- 	capabilities = capabilities,
@@ -288,7 +301,7 @@ vim.lsp.enable("bashls")
 vim.lsp.enable("hyprls")
 vim.lsp.enable("clangd")
 vim.lsp.enable("gopls")
--- vim.lsp.enable("qmlls")
+vim.lsp.enable("qmlls")
 vim.lsp.enable("jsonls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("emmet_ls")
