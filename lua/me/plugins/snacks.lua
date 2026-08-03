@@ -4,6 +4,53 @@ return {
 	lazy = false,
 	opts = {
 		picker = {
+
+			actions = {
+				smart_jump = function(picker, item)
+					if not item then
+						return
+					end
+
+					-- Eğer seçilen öge bir klasörse, Explorer'ın varsayılan aç/kapat davranışını çalıştır
+					if item.dir or (item.file and vim.fn.isdirectory(item.file) == 1) then
+						picker:action("confirm")
+						return
+					end
+
+					picker:close()
+					if not item.file then
+						return
+					end
+
+					local target_file = vim.fn.fnamemodify(item.file, ":p")
+					local found_tab = nil
+					local found_win = nil
+
+					-- Açık olan tüm sekme ve pencereleri tara
+					for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+						for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+							local buf = vim.api.nvim_win_get_buf(win)
+							local buf_name = vim.api.nvim_buf_get_name(buf)
+							if buf_name ~= "" and vim.fn.fnamemodify(buf_name, ":p") == target_file then
+								found_tab = tabpage
+								found_win = win
+								break
+							end
+						end
+						if found_tab then
+							break
+						end
+					end
+
+					if found_tab and found_win then
+						vim.api.nvim_set_current_tabpage(found_tab)
+						vim.api.nvim_set_current_win(found_win)
+					else
+						vim.cmd("edit " .. vim.fn.fnameescape(item.file))
+					end
+				end,
+			},
+
 			enabled = true,
 			ui_select = true,
 			icons = {
@@ -26,6 +73,7 @@ return {
 				files = {
 					layout = "vscode",
 					-- exclude = { "node_modules", ".git", "dist", "build", "target" },
+					-- exclude = { "*.class" },
 				},
 				lsp_workspace_symbols = { layout = "vertical" },
 				cliphist = {
@@ -60,16 +108,39 @@ return {
 				explorer = {
 					hidden = false,
 					follow_file = true,
+                    -- ignored = true,
+					-- ignore_patterns = { "node_modules", "target", "dist", "build", ".git" },
+					-- exclude = { "**/*.class" },
+
+					filter = function(item, picker)
+						-- Eğer 'Toggle Ignore' kapalıysa (picker.opts.ignored == false)
+						-- ve dosya .class uzantılıysa listeden süz
+						if not picker.opts.ignored and item.file and item.file:match("%.class$") then
+							return false
+						end
+						return true
+					end,
+					-- transform = function(item)
+					-- 	-- Match against file paths or names you want to completely hide
+					-- 	-- if item.file:match("%.class$") or item.file:match("package%-lock%.json") then
+					-- 	if item.file:match("%.class$") then
+					-- 		return false -- returns false to drop/exclude the item
+					-- 	end
+					-- 	return item
+					-- end,
+
 					layout = { preset = "sidebar", preview = false },
 					win = {
 						input = {
 							keys = {
 								["<C-t>"] = { "tab", mode = { "i", "n" } },
+								["<CR>"] = { "smart_jump", mode = { "i", "n" } },
 							},
 						},
 						list = {
 							keys = {
 								["<C-t>"] = "tab",
+								["<CR>"] = "smart_jump",
 							},
 						},
 					},
@@ -279,46 +350,6 @@ return {
 			function()
 				Snacks.picker.files({
 					layout = { preset = "vscode" },
-
-					-- 🌟 1. Yalnızca Enter tuşunda çalışacak özel aksiyonumuzu tanımlıyoruz
-					actions = {
-						smart_jump = function(picker, item)
-							picker:close()
-							if not item or not item.file then
-								return
-							end
-
-							local target_file = vim.fn.fnamemodify(item.file, ":p")
-							local found_tab = nil
-							local found_win = nil
-
-							-- Arka plandaki tüm sekmeleri ve splitleri tarıyoruz
-							for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
-								for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
-									local buf = vim.api.nvim_win_get_buf(win)
-									local buf_name = vim.api.nvim_buf_get_name(buf)
-									if buf_name ~= "" and vim.fn.fnamemodify(buf_name, ":p") == target_file then
-										found_tab = tabpage
-										found_win = win
-										break
-									end
-								end
-								if found_tab then
-									break
-								end
-							end
-
-							if found_tab and found_win then
-								-- Dosya başka bir sekmede açıksa, imleci oraya ışınla
-								vim.api.nvim_set_current_tabpage(found_tab)
-								vim.api.nvim_set_current_win(found_win)
-							else
-								-- Açık değilse, bulunduğun sekmeye normal bir şekilde aç
-								vim.cmd("edit " .. vim.fn.fnameescape(item.file))
-							end
-						end,
-					},
-
 					win = {
 						input = {
 							keys = {
@@ -327,7 +358,7 @@ return {
 						},
 						list = {
 							keys = {
-								["<CR>"] = { "smart_jump", mode = { "i", "n" } },
+								["<CR>"] = "smart_jump",
 							},
 						},
 					},

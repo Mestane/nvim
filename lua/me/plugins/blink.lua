@@ -1,5 +1,6 @@
 return {
 	{
+		enabled = true,
 		"saghen/blink.cmp",
 		dependencies = {
 			"saghen/blink.lib",
@@ -192,6 +193,7 @@ return {
 				},
 			},
 			fuzzy = {
+				-- implementation = "lua",
 				implementation = "rust", -- bunu ekle
 				sorts = {
 					-- Recommended: prioritize exact label matching for spelling

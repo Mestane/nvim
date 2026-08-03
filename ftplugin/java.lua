@@ -205,10 +205,10 @@ local config = {
 		java = {
 			configuration = {
 				runtimes = {
-					{ name = "JavaSE-11", path = "/usr/lib/jvm/java-11-openjdk", default = true },
+					{ name = "JavaSE-11", path = "/usr/lib/jvm/java-11-openjdk" },
 					{ name = "JavaSE-17", path = "/usr/lib/jvm/java-17-openjdk" },
 					{ name = "JavaSE-21", path = "/usr/lib/jvm/java-21-openjdk" },
-					{ name = "JavaSE-26", path = "/usr/lib/jvm/java-26-openjdk" },
+					{ name = "JavaSE-26", path = "/usr/lib/jvm/java-26-openjdk", default = true },
 				},
 				-- updateBuildConfiguration = "interactive",
 			},

@@ -4,3 +4,4 @@
 # Gitignore for the following technologies: Java
 
 lazy-lock.json
+./ftplugin/java.lua
